@@ -1,0 +1,9 @@
+name: My Mixing Bowl Migrate
+type: module
+description: 'Custom process-stage plugins for My Mixing Bowl migration'
+package: Core
+version: VERSION
+core: 8.x
+dependencies:
+  - migrate
+  - wordpress_migrate

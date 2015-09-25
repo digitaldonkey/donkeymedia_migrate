@@ -1,0 +1,23 @@
+id: mixingbowl_term
+label: WordPress Taxonomy Terms
+migration_group: WordPress
+source:
+  plugin: wordpress_category_source
+  urls: /data/Stacy/blogs/wordpress-truncated.wxr
+  element_query: "/rss/channel/wp:category[not(wp:category_parent = '')]"
+  id_query: 'wp:category_nicename'
+process:
+  vid:
+    plugin: migration
+    migration: mixingbowl_vocabulary
+    source: 'wp:category_nicename'
+  name: wp:cat_name
+  label: wp:cat_name
+  parent:
+    plugin: migration
+    migration: mixingbowl_term
+destination:
+  plugin: entity:taxonomy_term
+migration_dependencies:
+  required:
+    - mixingbowl_vocabulary

@@ -1,0 +1,45 @@
+id: mixingbowl_comment
+label: WordPress Comments
+migration_group: WordPress
+source:
+  plugin: wordpress_comment_source
+  urls: /data/Stacy/blogs/wordpress-truncated.wxr
+  element_query: "/rss/channel/item/wp:comment"
+  id_query: 'wp:comment_id'
+  constants:
+    entity_type: node
+    comment_type: comment
+    field_name: field_comments
+destination:
+  plugin: entity:comment
+process:
+  entity_id:
+    plugin: migration
+    migration: mixingbowl_post
+    source: '..\wp:post_id'
+  # pid sending migrate framework to infinite recursion, maybe fixed someday?
+  pid:
+    plugin: migration
+    migration: mixingbowl_comment
+    source: 'wp:comment_parent'
+  entity_type: 'constants/entity_type'
+  comment_type: 'constants/comment_type'
+  field_name: 'constants/field_name'
+  uid:
+    plugin: default_value
+    source: wp:comment_user_id
+    default_value: 0
+  name: 'wp:comment_author'
+  mail: wp:comment_author_email
+  homepage: wp:comment_author_url
+  hostname: wp:comment_author_IP
+  created:
+    plugin: callback
+    callable: strtotime
+    source: wp:comment_date_gmt
+  changed:
+    plugin: callback
+    callable: strtotime
+    source: wp:comment_date_gmt
+  status: wp:comment_approved
+  'comment_body/value': 'wp:comment_content'
