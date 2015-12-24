@@ -1,0 +1,9 @@
+name: My Donkeymedia Migrate
+type: module
+description: 'Custom process-stage plugins for Donkeymedia migration'
+package: migrate
+version: VERSION
+core: 8.x
+dependencies:
+  - migrate
+  - wordpress_migrate

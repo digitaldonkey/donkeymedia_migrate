@@ -1,0 +1,96 @@
+id: donkeymedia_article
+label: Blog Articles and Pages migration
+migration_group: donkeymedia
+source:
+  plugin: wordpress_item_source
+  # element_query: "/rss/channel/item[wp:post_type='page']"
+  element_query: "/rss/channel/item"
+  id_query: 'wp:post_id'
+  constants:
+    # Required for qtranslate processing. Represents qtranslate->active languages.
+    available_languages:
+      - en
+      - de
+    post_save_process: DonkeymediaMigratePostSave
+destination:
+  plugin: entity:node
+process:
+  # Default language. Later we will import other languages in node postSave();
+  langcode:
+    plugin: default_value
+    default_value: 'en'
+  type:
+  # Processing all post types and mapping only the following.
+    -
+      plugin: static_map
+      source: wp:post_type
+      map:
+        post: article
+        page: page
+      default_value:
+    -
+      plugin: post_node_type_project
+      method: process
+    -
+      plugin: skip_on_empty
+      method: row
+  'title/value':
+    -
+      plugin: qtranslate_tag_by_node_language
+      source: title
+    -
+      plugin: skip_on_empty
+      method: row
+  uid:
+    plugin: default_value
+    default_value: 1
+  sticky:
+    plugin: default_value
+    default_value: 0
+  created:
+    plugin: wordpress_date_process
+    source: pubDate
+  changed:
+    plugin: wordpress_date_process
+    source: pubDate
+  status:
+    plugin: static_map
+    source: 'wp:status'
+    map:
+      publish: 1
+    default_value: 0
+#  field_recipe_index_categories:
+#    -
+#      plugin: donkeymedia_recipe_categories
+#      source: category
+#      vid: recipe_index
+#    -
+#      plugin: skip_on_empty
+#      method: process
+  field_tags:
+    -
+      plugin: donkeymedia_tags
+      source: category
+      vid: tags
+  body/value:
+    # Skip if there is no Content in Default Language
+    -
+      plugin: qtranslate_tag_by_node_language
+      source: content:encoded
+    -
+      plugin: donkeymedia_process_php
+    -
+      plugin: donkeymedia_remove_captions
+  'body/format':
+    plugin: default_value
+    default_value: full_html
+  field_image:
+    -
+      plugin: qtranslate_tag_by_node_language
+      source: content:encoded
+    -
+      # Will return the fid by looking up in migration_map_donkeymedia_file.
+      plugin: attachment_to_file
+migration_dependencies:
+  required:
+    - donkeymedia_file

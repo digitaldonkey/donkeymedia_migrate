@@ -1,9 +1,8 @@
-id: mixingbowl_comment
+id: donkeymedia_comment
 label: WordPress Comments
-migration_group: WordPress
+migration_group: donkeymedia
 source:
   plugin: wordpress_comment_source
-  urls: /data/Stacy/blogs/wordpress-truncated.wxr
   element_query: "/rss/channel/item/wp:comment"
   id_query: 'wp:comment_id'
   constants:
@@ -15,12 +14,12 @@ destination:
 process:
   entity_id:
     plugin: migration
-    migration: mixingbowl_post
+    migration: donkeymedia_post
     source: '..\wp:post_id'
   # pid sending migrate framework to infinite recursion, maybe fixed someday?
   pid:
     plugin: migration
-    migration: mixingbowl_comment
+    migration: donkeymedia_comment
     source: 'wp:comment_parent'
   entity_type: 'constants/entity_type'
   comment_type: 'constants/comment_type'

@@ -1,0 +1,5 @@
+services:
+  donkeymedia_migrate.donkeymedia_migrate_post_save:
+    class: Drupal\donkeymedia_migrate\EventSubscriber\DonkeymediaMigratePostSave
+    tags:
+      - { name: event_subscriber }

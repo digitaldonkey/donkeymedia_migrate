@@ -16,10 +16,10 @@ use Drupal\migrate\Row;
  * This plugin sets missing values on the destination.
  *
  * @MigrateProcessPlugin(
- *   id = "post_node_type"
+ *   id = "post_node_type_project"
  * )
  */
-class PostNodeType extends ProcessPluginBase {
+class PostNodeTypeProject extends ProcessPluginBase {
 
   /**
    * Posts are either type recpie or restaurant_review.
@@ -27,18 +27,15 @@ class PostNodeType extends ProcessPluginBase {
    * restaurant_review.
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-//    $mapping = $row->getSource()['constants']['content_types_to_map'];
 
-//    $src = $row->getSource();
-//
-//    if (isset($src['category'])) {
-//      $cats = $src['category'];
-//      if (is_array($cats) && in_array('References',$cats)) {
-//        $value = 'project';
-//      }
-//    }
-//
+    $src = $row->getSource();
 
+    if (isset($src['category']) && !empty($src['category'])) {
+      $cats = $src['category'];
+      if (is_array($cats) && in_array('References', $cats)) {
+        $value = 'project';
+      }
+    }
     return is_string($value) ? $value : NULL;
   }
 

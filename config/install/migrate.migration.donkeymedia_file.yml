@@ -1,0 +1,38 @@
+id: donkeymedia_file
+label: Donkeymedia wordpress Files migration.
+migration_group: donkeymedia
+
+source:
+  plugin: wordpress_attachment_source
+  element_query: "/rss/channel/item[wp:post_type = 'attachment']"
+  id_query: 'wp:post_id'
+process:
+  # Default language. Later we will import other languages in node postSave();
+  langcode:
+    plugin: default_value
+    default_value: 'en'
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+  created:
+    plugin: callback
+    callable: strtotime
+    source: wp:post_date_gmt
+  changed:
+    plugin: callback
+    callable: strtotime
+    source: wp:post_date_gmt
+  filename:
+    plugin: callback
+    callable: basename
+    source: wp:attachment_url
+  uri:
+    plugin: wordpress_attachment_uri_process
+
+#    _wp_attachment_image_alt
+destination:
+  plugin: entity:file
+  source_path_property: wp:attachment_url

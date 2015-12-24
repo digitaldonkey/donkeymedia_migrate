@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\mixingbowl_migrate\Plugin\migrate\process;
+namespace Drupal\donkeymedia_migrate\Plugin\migrate\process;
 
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\MigrateExecutableInterface;
@@ -7,11 +7,11 @@ use Drupal\migrate\Row;
 
 /**
  * Description of MixingbowlRating
- * 
+ *
  * @MigrateProcessPlugin(
- *   id = "mixingbowl_rating"
+ *   id = "donkeymedia_rating"
  * )
- * 
+ *
  * @author mike
  */
 class MixingbowlRating extends ProcessPluginBase {
@@ -28,5 +28,5 @@ class MixingbowlRating extends ProcessPluginBase {
       return null;
     }
   }
-  
+
 }

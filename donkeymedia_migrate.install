@@ -1,0 +1,20 @@
+<?php
+
+/*
+ * Implements hook_uninstall().
+ *
+ * See: http://drupal.stackexchange.com/questions/164612/how-to-remove-a-configuration-object-from-active-config-in-drupal-8.
+ */
+
+function donkeymedia_migrate_uninstall() {
+
+  // Delete Configuration generated at at activation.
+  $dir = DRUPAL_ROOT . DIRECTORY_SEPARATOR . drupal_get_path('module', 'donkeymedia_migrate') . DIRECTORY_SEPARATOR . 'config/install';
+  $files = file_scan_directory($dir, '/.*\.yml$/');
+
+  foreach ($files as $file) {
+    db_delete('config')
+      ->condition('name', $file->name)
+      ->execute();
+  }
+}

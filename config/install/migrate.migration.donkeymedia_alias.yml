@@ -1,30 +1,29 @@
-id: mixingbowl_alias_1
+id:   donkeymedia_alias
 label: WordPress URL Aliases
-migration_group: WordPress
+migration_group: donkeymedia
 source:
   plugin: wordpress_attachment_source
   constants:
       node_prefix: '/node/'
-  urls: /data/Stacy/blogs/wordpress-truncated.wxr
-  element_query: "/rss/channel/item[wp:post_type = 'post']"
+  element_query: "/rss/channel/item"
   id_query: 'wp:post_id'
 process:
   source:
     -
       plugin: migration
-      migration: mixingbowl_post
+      migration: donkeymedia_article
       source: 'wp:post_id'
     -
       plugin: wordpress_alias_source_process
-  alias:
-    plugin: mixingbowl_p_alias
-    prefix: ''
-    source: guid
   langcode:
     plugin: default_value
     default_value: en
+  alias:
+    plugin: wordpress_alias_process
+    prefix: ''
+    source: link
 destination:
   plugin: url_alias
 migration_dependencies:
   required:
-    - mixingbowl_post
+    - donkeymedia_article
