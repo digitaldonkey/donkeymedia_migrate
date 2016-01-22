@@ -1,6 +1,7 @@
 id: donkeymedia_article
 label: Blog Articles and Pages migration
 migration_group: donkeymedia
+langcode : en
 source:
   plugin: wordpress_item_source
   # element_query: "/rss/channel/item[wp:post_type='page']"

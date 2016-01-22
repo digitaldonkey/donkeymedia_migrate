@@ -1,6 +1,7 @@
 id: donkeymedia_alias_1
 label: WordPress URL Aliases
 migration_group: donkeymedia
+langcode : en
 source:
   plugin: wordpress_attachment_source
   constants:

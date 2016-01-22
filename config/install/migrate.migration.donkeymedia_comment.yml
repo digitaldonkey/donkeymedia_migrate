@@ -1,6 +1,7 @@
 id: donkeymedia_comment
 label: WordPress Comments
 migration_group: donkeymedia
+langcode : en
 source:
   plugin: wordpress_comment_source
   element_query: "/rss/channel/item/wp:comment"

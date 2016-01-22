@@ -1,7 +1,7 @@
 id: donkeymedia_file
 label: Donkeymedia wordpress Files migration.
 migration_group: donkeymedia
-
+langcode : en
 source:
   plugin: wordpress_attachment_source
   element_query: "/rss/channel/item[wp:post_type = 'attachment']"

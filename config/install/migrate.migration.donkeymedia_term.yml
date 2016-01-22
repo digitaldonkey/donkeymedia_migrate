@@ -1,6 +1,7 @@
 id: donkeymedia_term
 label: WordPress Taxonomy Terms
 migration_group: donkeymedia
+langcode : en
 source:
   plugin: wordpress_category_source
   element_query: "/rss/channel/wp:category[not(wp:category_parent = '')]"

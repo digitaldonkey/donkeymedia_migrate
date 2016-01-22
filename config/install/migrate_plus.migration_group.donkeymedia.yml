@@ -11,7 +11,8 @@ id: donkeymedia
 label: Donkeymedia Imports
 
 # More information about the group.
-description: N.A.
+description: Migrate wordpress with Qtranslate (multilingual) plugin to Drupal 8.
+langcode : en
 
 # Short description of the type of source, e.g. "Drupal 6" or "WordPress".
 source_type: WordPress
